@@ -22,5 +22,7 @@ inquirer.prompt(
     ]
 ).then(function(response) {
     let numEmployees = parseInt(response['num-employees']);
-    return numEmployees;
+    return 
+}).then(function(response) {
+
 })
