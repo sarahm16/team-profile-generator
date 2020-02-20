@@ -25,27 +25,27 @@ const render = require("./lib/htmlRenderer");
 //     for(let i=0; i<numEmployees; i++) {
 //         inquirer.prompt(
 //             [
-//                 {
-//                     type: 'input',
-//                     message: 'What is the employees name?',
-//                     name: 'name'
-//                 },
-//                 {
-//                     type: 'input',
-//                     message: 'What is their ID?',
-//                     name: 'id'
-//                 },
-//                 {
-//                     type: 'input',
-//                     message: 'What is their email?',
-//                     name: 'email'
-//                 },
-//                 {
-//                     type: 'input',
-//                     message: 'What is their role?',
-//                     name: 'job'
-//                 }
-//             ]
+            //     {
+            //         type: 'input',
+            //         message: 'What is the employees name?',
+            //         name: 'name'
+            //     },
+            //     {
+            //         type: 'input',
+            //         message: 'What is their ID?',
+            //         name: 'id'
+            //     },
+            //     {
+            //         type: 'input',
+            //         message: 'What is their email?',
+            //         name: 'email'
+            //     },
+            //     {
+            //         type: 'input',
+            //         message: 'What is their role?',
+            //         name: 'job'
+            //     }
+            // ]
 //         ).then(function(data) {
 //             console.log(data);
 //             if(job === 'manager') {
@@ -66,10 +66,35 @@ inquirer.prompt(
     }
 ).then(function(response) {
     if(response) {
-        
-    }
-    else {
-
+        inquirer.prompt(
+            [
+                {
+                    type: 'input',
+                    message: 'What is the employees name?',
+                    name: 'name'
+                },
+                {
+                    type: 'input',
+                    message: 'What is their ID?',
+                    name: 'id'
+                },
+                {
+                    type: 'input',
+                    message: 'What is their email?',
+                    name: 'email'
+                },
+                {
+                    type: 'input',
+                    message: 'What is their role?',
+                    name: 'job'
+                }
+            ]
+        )
+        .then(function(data) {
+            if(data.role == 'manager') {
+                
+            }
+        })
     }
 })
 
