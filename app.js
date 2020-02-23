@@ -13,9 +13,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-let managers = [];
-let interns = [];
-let engineers = [];
+let employees = [];
 
 function addEmployee() {
     inquirer.prompt(
@@ -25,7 +23,7 @@ function addEmployee() {
             name: 'add-employee'
         }
     ).then(function(response) {
-        if(response) {
+        if(response['add-employee']) {
             inquirer.prompt(
                 [
                     {
@@ -51,21 +49,17 @@ function addEmployee() {
                 ]
             )
             .then(function(data) {
-                // let employee = new Employee(data.name, data.email, data.id);
-                // console.log(employee);
-                // employeeList.push(employee);
-                //console.log(data.role);
-
                 if(data.role == 'manager') {
                     inquirer.prompt(
                         {
                             type: 'input',
                             message: 'What is their office number?',
-                            name: 'number'
+                            name: 'officeNumber'
                         }
                     ).then(function(managerResponse) {
-                        let Jacob = new Manager(data.name, data.id, data.email, managerResponse.number);
-                        managers.push(Jacob);
+                        let manager = new Manager(data.name, data.id, data.email, managerResponse.number);
+                        employees.push(manager);
+                        addEmployee();
                     })
                 }
                 else if(data.role == 'intern') {
@@ -76,9 +70,9 @@ function addEmployee() {
                             name: 'school'
                         }
                     ).then(function(response) {
-                        let i = new Intern(data.name, data.id, data.email, response.school)
-                        console.log(i);
-                        interns.push(i);
+                        let intern = new Intern(data.name, data.id, data.email, response.school)
+                        employees.push(intern);
+                        addEmployee();
                     })
                 }
                 else if(data.role == 'engineer') {
@@ -89,31 +83,21 @@ function addEmployee() {
                             name: 'github'
                         }
                     ).then(function(response) {
-                        let e = new Engineer(data.name, data.id, data.email, response.github)
-                        console.log(e);
-                        engineers.push(e);
+                        let engineer = new Engineer(data.name, data.id, data.email, response.github)
+                        employees.push(engineer);
+                        addEmployee();
                     })
                 }
-                
-                //addEmployee();
+            })
+
+        }
+        else {
+            let main = render(employees);
+            fs.writeFileSync('team.html', main, function(err) {
+                if(err) throw err;
             })
         }
     })
 }
 
 addEmployee();
-
-
-//Would you like to add an employee?
-//function addEmployee()
-//inquirer....
-//what is their name?
-//What is their ID?
-//What is their email?
-// new Employee?
-//What is their role?
-//switch cases..
-//new Intern
-//new Engineer
-//new Manager
-//render HTML
