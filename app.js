@@ -14,6 +14,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 let employees = [];
+let managers = [];
 
 function addEmployee() {
     inquirer.prompt(
@@ -59,6 +60,7 @@ function addEmployee() {
                     ).then(function(managerResponse) {
                         let manager = new Manager(data.name, data.id, data.email, managerResponse.number);
                         employees.push(manager);
+                        managers.push(manager)
                         addEmployee();
                     })
                 }
@@ -92,10 +94,16 @@ function addEmployee() {
 
         }
         else {
-            let main = render(employees);
-            fs.writeFileSync('team.html', main, function(err) {
-                if(err) throw err;
-            })
+            if(managers.length >= 1) {
+                let main = render(employees);
+                fs.writeFileSync('team.html', main, function(err) {
+                    if(err) throw err;
+                })
+            }
+            else {
+                console.log('Team must have one manager');
+                addEmployee();
+            }
         }
     })
 }
