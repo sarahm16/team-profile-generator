@@ -96,7 +96,7 @@ function addEmployee() {
         else {
             if(managers.length >= 1) {
                 let main = render(employees);
-                fs.writeFileSync('team.html', main, function(err) {
+                fs.writeFileSync(outputPath, main, function(err) {
                     if(err) throw err;
                 })
             }
